@@ -294,7 +294,7 @@ func (c *Controller) handlePod(pod *v1.Pod) error {
 }
 
 func (c *Controller) getPodEvents(pod *v1.Pod) (out string, err error) {
-	events, err := c.clientset.CoreV1().Events(pod.Namespace).List(context.TODO(), metav1.ListOptions{FieldSelector: "type!=Normal"})
+	events, err := c.clientset.CoreV1().Events(pod.Namespace).List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		klog.Error("Failed while getting Pod events.")
 		return "", fmt.Errorf("got error while getting events: %v", err)
