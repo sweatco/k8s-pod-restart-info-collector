@@ -28,7 +28,7 @@ ignoreRestartsWithExitCodeZero: false
 
 image:
   repository: 377766724298.dkr.ecr.eu-west-1.amazonaws.com/k8s-pod-restart-info-collector
-  tag: "feat-jenkinsfile-79ac031d3e6922d50318f3749e382450c727278c"
+  tag: "feat-jenkinsfile-dfb344ad6ca0fc9e5ddf9df346fb67396b4ff4f1"
 
 resources: 
   limits:

@@ -275,7 +275,8 @@ func (c *Controller) handlePod(pod *v1.Pod) error {
 		}
 
 		msg := SlackMessage{
-			Title:  fmt.Sprintf("*Pod restarted!*\n*cluster: `%s`, pod: `%s`, namespace: `%s`*", c.slack.ClusterName, pod.Name, pod.Namespace),
+			Title: fmt.Sprintf("*Pod restarted*\n\n*cluster: `%s`, pod: `%s`, namespace: `%s`*", c.slack.ClusterName, pod.Name, pod.Namespace),
+
 			Text:   podStatus + podEvents + nodeEvents + containerLogs,
 			Footer: fmt.Sprintf("%s, %s, %s", c.slack.ClusterName, pod.Name, pod.Namespace),
 		}
