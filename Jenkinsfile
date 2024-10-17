@@ -41,11 +41,6 @@ pipeline {
         stage('Push Helm chart') {
             steps {
                 sh '''
-                    aws ecr-public get-login-password \
-                        --region us-east-1 | helm registry login \
-                         --username AWS \
-                         --password-stdin public.ecr.aws
-
                     helm package ./helm
                     HELM_CHART=$(ls -1 *.tgz)
                     helm push "${HELM_CHART}" oci://public.ecr.aws/f5c8x2g6
