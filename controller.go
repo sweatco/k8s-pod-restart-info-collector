@@ -275,7 +275,8 @@ func (c *Controller) handlePod(pod *v1.Pod) error {
 		}
 
 		msg := SlackMessage{
-			Title:  fmt.Sprintf("*Pod restarted!*\n*cluster: `%s`, pod: `%s`, namespace: `%s`*", c.slack.ClusterName, pod.Name, pod.Namespace),
+			Title: fmt.Sprintf("*Pod restarted*\n\n*cluster: `%s`, pod: `%s`, namespace: `%s`*", c.slack.ClusterName, pod.Name, pod.Namespace),
+
 			Text:   podStatus + podEvents + nodeEvents + containerLogs,
 			Footer: fmt.Sprintf("%s, %s, %s", c.slack.ClusterName, pod.Name, pod.Namespace),
 		}
@@ -294,7 +295,7 @@ func (c *Controller) handlePod(pod *v1.Pod) error {
 }
 
 func (c *Controller) getPodEvents(pod *v1.Pod) (out string, err error) {
-	events, err := c.clientset.CoreV1().Events(pod.Namespace).List(context.TODO(), metav1.ListOptions{FieldSelector: "type!=Normal"})
+	events, err := c.clientset.CoreV1().Events(pod.Namespace).List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		klog.Error("Failed while getting Pod events.")
 		return "", fmt.Errorf("got error while getting events: %v", err)

@@ -5,6 +5,10 @@ metadata:
   name: {{ include "k8s-pod-restart-info-collector.fullname" . }}
   labels:
     {{- include "k8s-pod-restart-info-collector.labels" . | nindent 4 }}
+  {{- with .Values.serviceAccountAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
