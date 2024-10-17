@@ -2,14 +2,24 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# Example installation:
+#  helm upgrade --install -n monitoring k8s-pod-restart-info-collector ./helm \
+#  --set slackWebhookUrl="https://hooks.slack.com/services/SUPERSECRET" \
+#  --set clusterName="test" \
+#  --set slackChannel="test"
 
-# clusterName: "Change-Me"
-# slackWebhookUrl: "https://hooks.slack.com/services/Change-Me"
+# clusterName: "<your_cluster_name>"
+
+# Use either plain secret or secret from ref
+# slackWebhookUrl: "https://hooks.slack.com/services/<your_slack_webhook>"
+
 #slackWebhookUrlSecretKeyRef:
 #  key: "slackWebhookUrl"
 #  name: "k8s-pod-restart-info-collector"
+
 slackChannel: "restart-info-nonprod"
 slackUsername: "k8s-pod-restart-info-collector"
+
 muteSeconds: 600
 ignoreRestartCount: 30
 
@@ -28,7 +38,10 @@ ignoreRestartsWithExitCodeZero: false
 
 image:
   repository: 377766724298.dkr.ecr.eu-west-1.amazonaws.com/k8s-pod-restart-info-collector
-  tag: "feat-jenkinsfile-dfb344ad6ca0fc9e5ddf9df346fb67396b4ff4f1"
+  tag: "master-latest"
+  pullPolicy: IfNotPresent
+
+serviceAccountAnnotations: {}
 
 resources: 
   limits:
@@ -51,3 +64,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+volumes: []
+
+volumeMounts: []

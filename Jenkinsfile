@@ -38,6 +38,15 @@ pipeline {
                 """
             }
         }
+        stage('Push Helm chart') {
+            steps {
+                sh '''
+                    helm package ./helm
+                    HELM_CHART=$(ls -1 *.tgz)
+                    helm push "${HELM_CHART}" oci://public.ecr.aws/f5c8x2g6
+                '''
+            }
+        }
     }
     post {
         always {
